@@ -51,25 +51,19 @@ public class TutorialApplication implements CommandLineRunner {
 		article.ifPresent(val -> System.out.println(val));
 		// et tout les articles...
 		List<Article> articles = articleRepository.findAll();
-		for (Article a : articles) {
-			System.out.println(a);
-		}
+		printArticles(articles);
 		// #endregion
 
 		// #region
 		// trouver par telle ou telle marque/description
 		List<Article> articleContains = articleRepository.findByBrandContainsAndDescriptionContains("S", "Sam");
-		for (Article a : articleContains) {
-			System.out.println(a);
-		}
+		printArticles(articleContains);
 		// #endregion
 
 		// #region
 		// test de la fonction search
 		List<Article> searchArts = articleRepository.findByBrandContainsAndPriceGreaterThan("S10", 200);
-		for (Article a : searchArts) {
-			System.out.println(a);
-		}
+		printArticles(searchArts);
 		// #endregion
 
 		// #region
@@ -78,13 +72,19 @@ public class TutorialApplication implements CommandLineRunner {
 		try {
 			articleRepository.deleteById(id);
 		} catch (Exception e) {
-			throw new Exception(e.getMessage());
+			System.out.println(e.getMessage());
 		}
+		articles = articleRepository.findAll();
 		// on refait le tour pour vérifier
-		for (Article a : articleRepository.findAll()) {
+		printArticles(articles);
+		// #endregion
+
+	}
+
+	private void printArticles(List<Article> articles) {
+		for (Article a : articles) {
 			System.out.println(a);
 		}
-		// #endregion
 	}
 
 }
