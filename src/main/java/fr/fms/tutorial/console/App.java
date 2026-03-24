@@ -171,8 +171,31 @@ public class App {
     }
 
     private void addArticle() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addArticle'");
+        System.out.print("Marque: ");
+        String brand = scanner.nextLine();
+        System.out.print("Description: ");
+        String description = scanner.nextLine();
+        System.out.print("Prix: ");
+        double price = scanner.nextDouble();
+        scanner.nextLine(); // Consume newline
+
+        System.out.println("Catégories disponibles:");
+        List<Category> categories = categoryRepository.findAll();
+        for (Category category : categories) {
+            System.out.println(category.getId() + ": " + category.getName());
+        }
+        System.out.print("ID de la catégorie: ");
+        Long categoryId = scanner.nextLong();
+        scanner.nextLine(); // Consume newline
+
+        Optional<Category> categoryOpt = categoryRepository.findById(categoryId);
+        if (categoryOpt.isPresent()) {
+            Article article = new Article(brand, description, price, categoryOpt.get());
+            articleRepository.save(article);
+            System.out.println("Article ajouté avec succès.");
+        } else {
+            System.out.println("Catégorie introuvable.");
+        }
     }
 
     private void displayArticlesWithPagination() {
