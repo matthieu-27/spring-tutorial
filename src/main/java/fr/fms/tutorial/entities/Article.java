@@ -73,4 +73,13 @@ public class Article {
   public void setPrice(double value) {
     this.price = value;
   }
+
+  public Category getCategory() {
+    return this.category;
+  }
+
+  public void setCategory(Category category) {
+    this.category = category;
+  }
+
 }
