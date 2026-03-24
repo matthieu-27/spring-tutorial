@@ -110,8 +110,16 @@ public class App {
     }
 
     private void deleteArticle() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteArticle'");
+        System.out.print("ID de l'article: ");
+        Long id = scanner.nextLong();
+        scanner.nextLine(); // Consume newline
+
+        try {
+            articleRepository.deleteById(id);
+            System.out.println("Article supprimé avec succès.");
+        } catch (Exception e) {
+            System.out.println("Erreur lors de la suppression: " + e.getMessage());
+        }
     }
 
     private void displayArticle() {
