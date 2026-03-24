@@ -95,8 +95,16 @@ public class App {
     }
 
     private void displayCategory() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'displayCategory'");
+        System.out.print("ID de la catégorie: ");
+        Long id = scanner.nextLong();
+        scanner.nextLine(); // Consume newline
+
+        Optional<Category> categoryOpt = categoryRepository.findById(id);
+        if (categoryOpt.isPresent()) {
+            System.out.println(categoryOpt.get());
+        } else {
+            System.out.println("Catégorie introuvable.");
+        }
     }
 
     private void addCategory() {
