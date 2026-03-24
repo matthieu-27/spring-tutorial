@@ -40,7 +40,8 @@ public class TutorialApplication implements CommandLineRunner {
 		// articleRepository.save(new Article("S10", "Samsung", 500, smartphone));
 		// articleRepository.save(new Article("S9", "Samsung", 500, smartphone));
 		// articleRepository.save(new Article("MI10", "Xiaomi", 500, smartphone));
-		// articleRepository.save(new Article("Galaxy Tab S", "Samsung", 500, tablet));
+		// articleRepository.save(new Article("Galaxy Tab S", "Samsung", 500,
+		tablet));
 		// articleRepository.save(new Article("Ipad", "Apple", 1200, tablet));
 		// articleRepository.save(new Article("R510", "Asus", 900, pc));
 		// #endregion
@@ -56,13 +57,15 @@ public class TutorialApplication implements CommandLineRunner {
 
 		// #region
 		// trouver par telle ou telle marque/description
-		List<Article> articleContains = articleRepository.findByBrandContainsAndDescriptionContains("S", "Sam");
+		List<Article> articleContains =
+		articleRepository.findByBrandContainsAndDescriptionContains("S", "Sam");
 		printArticles(articleContains);
 		// #endregion
 
 		// #region
 		// test de la fonction search
-		List<Article> searchArts = articleRepository.findByBrandContainsAndPriceGreaterThan("S10", 200);
+		List<Article> searchArts =
+		articleRepository.findByBrandContainsAndPriceGreaterThan("S10", 200);
 		printArticles(searchArts);
 		// #endregion
 
@@ -70,13 +73,27 @@ public class TutorialApplication implements CommandLineRunner {
 		// test du deleteById
 		Long id = Long.valueOf(1);
 		try {
-			articleRepository.deleteById(id);
+		articleRepository.deleteById(id);
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+		System.out.println(e.getMessage());
 		}
 		articles = articleRepository.findAll();
 		// on refait le tour pour vérifier
 		printArticles(articles);
+		// #endregion
+
+		// #region
+		Long updateId = Long.valueOf(2);
+
+		try {
+			Optional<Article> a = articleRepository.findById(updateId);
+			a.ifPresent(val -> {
+				val.setBrand("MIMI");
+				articleRepository.save(val);
+			});
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		// #endregion
 
 	}
