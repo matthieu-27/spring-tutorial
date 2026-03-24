@@ -44,13 +44,18 @@ public class TutorialApplication implements CommandLineRunner {
 		// articleRepository.save(new Article("Ipad", "Apple", 1200, tablet));
 		// articleRepository.save(new Article("R510", "Asus", 900, pc));
 		// #endregion
+
+		// #region
 		// trouver 1 moyen d'afficher un article
 		Optional<Article> article = articleRepository.findById(Long.valueOf(1));
-		System.out.println(article);
+		article.ifPresent(val -> System.out.println(val));
+		// et tout les articles...
 		List<Article> articles = articleRepository.findAll();
 		for (Article a : articles) {
 			System.out.println(a);
 		}
+		// #endregion
+
 	}
 
 }
