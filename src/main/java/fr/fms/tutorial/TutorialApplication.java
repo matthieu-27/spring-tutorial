@@ -99,6 +99,7 @@ public class TutorialApplication implements CommandLineRunner {
 		printCategories(ascList);
 		List<Category> dscList = categoryRepository.findAllByOrderByNameDesc();
 		printCategories(dscList);
+		// #endregion
 
 	}
 
