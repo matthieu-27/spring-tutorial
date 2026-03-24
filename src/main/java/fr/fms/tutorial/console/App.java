@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import fr.fms.tutorial.dao.ArticleRepository;
 import fr.fms.tutorial.dao.CategoryRepository;
 import fr.fms.tutorial.entities.Article;
+import fr.fms.tutorial.entities.Category;
 
 @Component
 public class App {
@@ -69,8 +70,17 @@ public class App {
     }
 
     private void displayArticlesByCategory() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'displayArticlesByCategory'");
+        System.out.println("Catégories disponibles:");
+        List<Category> categories = categoryRepository.findAll();
+        for (Category category : categories) {
+            System.out.println(category.getId() + ": " + category.getName());
+        }
+        System.out.print("ID de la catégorie: ");
+        Long categoryId = scanner.nextLong();
+        scanner.nextLine(); // Consume newline
+
+        List<Article> articles = articleRepository.findByCategoryId(categoryId);
+        printArticles(articles);
     }
 
     private void updateCategory() {
