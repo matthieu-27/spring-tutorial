@@ -140,8 +140,30 @@ public class App {
     }
 
     private void updateArticle() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateArticle'");
+        System.out.print("ID de l'article: ");
+        Long id = scanner.nextLong();
+        scanner.nextLine(); // Consume newline
+
+        Optional<Article> articleOpt = articleRepository.findById(id);
+        if (articleOpt.isPresent()) {
+            Article article = articleOpt.get();
+            System.out.print("Nouvelle marque (" + article.getBrand() + "): ");
+            String brand = scanner.nextLine();
+            System.out.print("Nouvelle description (" + article.getDescription() + "): ");
+            String description = scanner.nextLine();
+            System.out.print("Nouveau prix (" + article.getPrice() + "): ");
+            double price = scanner.nextDouble();
+            scanner.nextLine(); // Consume newline
+
+            article.setBrand(brand.isEmpty() ? article.getBrand() : brand);
+            article.setDescription(description.isEmpty() ? article.getDescription() : description);
+            article.setPrice(price == 0 ? article.getPrice() : price);
+
+            articleRepository.save(article);
+            System.out.println("Article mis à jour avec succès.");
+        } else {
+            System.out.println("Article introuvable.");
+        }
     }
 
     private void deleteArticle() {
