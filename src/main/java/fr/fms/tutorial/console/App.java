@@ -100,8 +100,12 @@ public class App {
     }
 
     private void addCategory() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addCategory'");
+        System.out.print("Nom de la catégorie: ");
+        String name = scanner.nextLine();
+
+        Category category = new Category(name);
+        categoryRepository.save(category);
+        System.out.println("Catégorie ajoutée avec succès.");
     }
 
     private void updateArticle() {
