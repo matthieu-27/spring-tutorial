@@ -90,8 +90,16 @@ public class App {
     }
 
     private void deleteCategory() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteCategory'");
+        System.out.print("ID de la catégorie: ");
+        Long id = scanner.nextLong();
+        scanner.nextLine(); // Consume newline
+
+        try {
+            categoryRepository.deleteById(id);
+            System.out.println("Catégorie supprimée avec succès.");
+        } catch (Exception e) {
+            System.out.println("Erreur lors de la suppression: " + e.getMessage());
+        }
     }
 
     private void displayCategory() {
