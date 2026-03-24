@@ -63,6 +63,15 @@ public class TutorialApplication implements CommandLineRunner {
 			System.out.println(a);
 		}
 		// #endregion
+
+		// //#region
+		// test de la fonction search
+		List<Article> searchArts = articleRepository.findByBrandContainsAndPriceGreaterThan("S10", 200);
+		for (Article a : searchArts) {
+			System.out.println(a);
+		}
+		// //#endregion
+
 	}
 
 }
