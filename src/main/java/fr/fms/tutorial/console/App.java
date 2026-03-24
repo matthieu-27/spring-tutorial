@@ -1,6 +1,7 @@
 package fr.fms.tutorial.console;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,8 +115,16 @@ public class App {
     }
 
     private void displayArticle() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'displayArticle'");
+        System.out.print("ID de l'article: ");
+        Long id = scanner.nextLong();
+        scanner.nextLine(); // Consume newline
+
+        Optional<Article> articleOpt = articleRepository.findById(id);
+        if (articleOpt.isPresent()) {
+            System.out.println(articleOpt.get());
+        } else {
+            System.out.println("Article introuvable.");
+        }
     }
 
     private void addArticle() {
