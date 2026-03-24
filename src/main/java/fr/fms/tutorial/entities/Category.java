@@ -20,6 +20,11 @@ public class Category {
   @OneToMany(mappedBy = "category")
   private Collection<Article> articles;
 
+  @Override
+  public String toString() {
+    return this.name;
+  }
+
   public Category() {
   }
 

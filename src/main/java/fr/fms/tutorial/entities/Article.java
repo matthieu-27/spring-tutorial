@@ -20,6 +20,9 @@ public class Article {
   @ManyToOne
   private Category category;
 
+  public Article() {
+  }
+
   public Article(String brand, String description, double price, Category category) {
     this.brand = brand;
     this.description = description;
@@ -31,6 +34,12 @@ public class Article {
     this.brand = brand;
     this.description = description;
     this.price = price;
+  }
+
+  @Override
+  public String toString() {
+    return "Article [id=" + this.id + ", description=" + this.description + ", brand=" + this.brand + ", price="
+        + this.price + "]";
   }
 
   public long getId() {
