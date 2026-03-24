@@ -85,8 +85,23 @@ public class App {
     }
 
     private void updateCategory() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateCategory'");
+        System.out.print("ID de la catégorie: ");
+        Long id = scanner.nextLong();
+        scanner.nextLine(); // Consume newline
+
+        Optional<Category> categoryOpt = categoryRepository.findById(id);
+        if (categoryOpt.isPresent()) {
+            Category category = categoryOpt.get();
+            System.out.print("Nouveau nom (" + category.getName() + "): ");
+            String name = scanner.nextLine();
+
+            category.setName(name.isEmpty() ? category.getName() : name);
+
+            categoryRepository.save(category);
+            System.out.println("Catégorie mise à jour avec succès.");
+        } else {
+            System.out.println("Catégorie introuvable.");
+        }
     }
 
     private void deleteCategory() {
