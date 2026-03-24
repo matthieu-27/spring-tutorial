@@ -56,6 +56,13 @@ public class TutorialApplication implements CommandLineRunner {
 		}
 		// #endregion
 
+		// #region
+		// trouver par telle ou telle marque/description
+		List<Article> articleContains = articleRepository.findByBrandContainsAndDescriptionContains("S", "Sam");
+		for (Article a : articleContains) {
+			System.out.println(a);
+		}
+		// #endregion
 	}
 
 }
