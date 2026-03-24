@@ -64,14 +64,27 @@ public class TutorialApplication implements CommandLineRunner {
 		}
 		// #endregion
 
-		// //#region
+		// #region
 		// test de la fonction search
 		List<Article> searchArts = articleRepository.findByBrandContainsAndPriceGreaterThan("S10", 200);
 		for (Article a : searchArts) {
 			System.out.println(a);
 		}
-		// //#endregion
+		// #endregion
 
+		// #region
+		// test du deleteById
+		Long id = Long.valueOf(1);
+		try {
+			articleRepository.deleteById(id);
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+		// on refait le tour pour vérifier
+		for (Article a : articleRepository.findAll()) {
+			System.out.println(a);
+		}
+		// #endregion
 	}
 
 }
