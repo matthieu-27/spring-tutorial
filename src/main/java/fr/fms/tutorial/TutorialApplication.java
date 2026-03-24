@@ -101,18 +101,30 @@ public class TutorialApplication implements CommandLineRunner {
 		printCategories(dscList);
 		// #endregion
 
+		// #region
+		List<Article> catArticles = articleRepository.findByCategoryId(Long.valueOf(2));
+		printArticles(catArticles);
+		// #endregion
 	}
 
 	private void printCategories(List<Category> categories) {
+		printLine();
 		for (Category c : categories) {
 			System.out.println(c);
 		}
+		printLine();
 	}
 
 	private void printArticles(List<Article> articles) {
+		printLine();
 		for (Article a : articles) {
 			System.out.println(a);
 		}
+		printLine();
+	}
+
+	private void printLine() {
+		System.out.println("------------------------------------------------------------");
 	}
 
 }
