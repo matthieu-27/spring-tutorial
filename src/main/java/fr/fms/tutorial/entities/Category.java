@@ -1,5 +1,6 @@
 package fr.fms.tutorial.entities;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 import javax.persistence.Entity;
@@ -8,8 +9,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
-public class Category {
+public class Category implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Id
@@ -25,8 +35,7 @@ public class Category {
     return this.name;
   }
 
-  public Category() {
-  }
+  // #region Getter & Setter
 
   public Category(String name) {
     this.name = name;
@@ -47,4 +56,6 @@ public class Category {
   public void setName(String value) {
     this.name = value;
   }
+
+  // #endregion
 }

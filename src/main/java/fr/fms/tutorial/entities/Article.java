@@ -1,13 +1,25 @@
 package fr.fms.tutorial.entities;
 
+//#region Imports
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+//#endregion
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
-public class Article {
+public class Article implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Id
@@ -20,8 +32,7 @@ public class Article {
   @ManyToOne
   private Category category;
 
-  public Article() {
-  }
+  // #region Constructors
 
   public Article(String brand, String description, double price, Category category) {
     this.brand = brand;
@@ -36,18 +47,18 @@ public class Article {
     this.price = price;
   }
 
+  // #endregion
+
   @Override
   public String toString() {
     return "Article [id=" + this.id + ", description=" + this.description + ", brand=" + this.brand + ", price="
         + this.price + "]";
   }
 
+  // #region Getter & Setter
+
   public long getId() {
     return this.id;
-  }
-
-  public void setId(long value) {
-    this.id = value;
   }
 
   public String getBrand() {
@@ -81,5 +92,7 @@ public class Article {
   public void setCategory(Category category) {
     this.category = category;
   }
+
+  // #endregion
 
 }
