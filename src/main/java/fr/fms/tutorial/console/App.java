@@ -221,8 +221,55 @@ public class App {
     }
 
     private void displayArticlesWithPagination() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'displayArticlesWithPagination'");
+        int pageSize = 5;
+        int pageNumber = 0;
+        boolean inPagination = true;
+
+        while (inPagination) {
+            List<Article> articles = articleRepository.findAll();
+            int totalPages = (int) Math.ceil((double) articles.size() / pageSize);
+
+            int start = pageNumber * pageSize;
+            int end = Math.min(start + pageSize, articles.size());
+            List<Article> pageArticles = articles.subList(start, end);
+
+            printArticles(pageArticles);
+
+            System.out.print("\n");
+            if (pageNumber > 0) {
+                System.out.print("PREV ");
+            }
+            for (int i = 0; i < totalPages; i++) {
+                if (i == pageNumber) {
+                    System.out.print("[" + i + "] ");
+                } else {
+                    System.out.print(i + " ");
+                }
+            }
+            if (pageNumber < totalPages - 1) {
+                System.out.print("NEXT");
+            }
+            System.out.print("\n\n");
+            System.out.print(
+                    "Tapez MENU pour revenir au menu principal, PREV/NEXT pour naviguer, ou PAGE X pour changer la taille de la page: ");
+
+            String input = scanner.nextLine();
+            if (input.equalsIgnoreCase("MENU")) {
+                inPagination = false;
+            } else if (input.equalsIgnoreCase("PREV") && pageNumber > 0) {
+                pageNumber--;
+            } else if (input.equalsIgnoreCase("NEXT") && pageNumber < totalPages - 1) {
+                pageNumber++;
+            } else if (input.startsWith("PAGE")) {
+                try {
+                    pageSize = Integer.parseInt(input.split(" ")[1]);
+                } catch (Exception e) {
+                    System.out.println("Format invalide. Utilisez PAGE X où X est un nombre.");
+                }
+            } else {
+                System.out.println("Commande invalide.");
+            }
+        }
     }
 
     private void printMenu() {
@@ -254,12 +301,12 @@ public class App {
         }
 
         System.out.println("\n");
-        System.out.printf("%-10s %-20s %-20s %-10s %-20s\n", "ID", "DESCRIPTION", "MARQUE", "PRIX", "CATEGORIE");
+        System.out.printf("%-10s %-60s %-30s %-20s %-30s\n", "ID", "DESCRIPTION", "MARQUE", "PRIX", "CATEGORIE");
         System.out.println(
-                "----------------------------------------------------------------------------------------------------");
+                "---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
         for (Article article : articles) {
             String categoryName = article.getCategory() != null ? article.getCategory().getName() : "Aucune";
-            System.out.printf("%-10d %-20s %-20s %-10.2f %-20s\n",
+            System.out.printf("\"%-10s %-60s %-30s %-20s %-30s\n",
                     article.getId(),
                     article.getDescription(),
                     article.getBrand(),
@@ -267,6 +314,6 @@ public class App {
                     categoryName);
         }
         System.out.println(
-                "----------------------------------------------------------------------------------------------------");
+                "----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
     }
 }
